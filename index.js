@@ -39,7 +39,7 @@ async function run() {
       const newCampaign = req.body;
       console.log('Adding new campaign', newCampaign)
 
-      const result = await campaignCollection.insertOne(newCampaign);
+      const result = await campaignCollection.insertOne(ne);
       res.send(result);
   });
 
@@ -50,6 +50,14 @@ async function run() {
   });
     
     
+    // user apis
+    app.post('/users', async (req, res) => {
+      const newUser = req.body;
+      console.log('creating new user', newUser);
+      const result = await userCollection.insertOne(newUser);
+      res.send(result);
+    });
+
 
 
   
