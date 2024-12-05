@@ -46,6 +46,22 @@ async function run() {
       res.send(result);
     });
 
+    app.get('/campaigns/sorted', async (req, res) => {
+      try {
+        const campaigns = await campaignCollection
+          .find() // Get a cursor
+          .sort({ minDonation: 1 }) // Always ascending
+          .toArray(); // Convert cursor to array
+    
+        res.json(campaigns);
+      } catch (error) {
+        console.error('Error fetching sorted campaigns:', error);
+        res.status(500).json({ error: 'Failed to fetch sorted campaigns' });
+      }
+    });
+    
+
+
     app.get('/campaigns/:id', async (req, res) => {
       const id = req.params.id;
     
