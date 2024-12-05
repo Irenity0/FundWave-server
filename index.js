@@ -48,10 +48,7 @@ async function run() {
 
     app.get('/campaigns/sorted', async (req, res) => {
       try {
-        const campaigns = await campaignCollection
-          .find() // Get a cursor
-          .sort({ minDonation: 1 }) // Always ascending
-          .toArray(); // Convert cursor to array
+        const campaigns = await campaignCollection.find().sort({ minDonation: 1 }) .toArray(); 
     
         res.json(campaigns);
       } catch (error) {
