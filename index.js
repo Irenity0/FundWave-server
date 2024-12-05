@@ -11,7 +11,6 @@ app.use(express.json());
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.oo5u4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -22,7 +21,6 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    // Connect the client to the server (optional starting in v4.7)
     // await client.connect();
 
     // Send a ping to confirm a successful connection
@@ -73,7 +71,6 @@ async function run() {
     app.put('/campaigns/:id', async (req, res) => {
       const id = req.params.id;
   
-      // Validate ObjectId
       if (!ObjectId.isValid(id)) {
           return res.status(400).send({ error: 'Invalid campaign ID' });
       }
@@ -81,7 +78,6 @@ async function run() {
       const filter = { _id: new ObjectId(id) };
       const updatedCampaign = req.body;
   
-      // Campaign update object
       const campaign = {
           $set: {
               image: updatedCampaign.image,
@@ -107,7 +103,7 @@ async function run() {
 
     // DELETE route to delete a campaign
     app.delete('/campaigns/:id', async (req, res) => {
-      const id = req.params.id;
+      const id = req.params.id; 
       const query = { _id: new ObjectId(id) };
       const result = await campaignCollection.deleteOne(query);
       res.send(result);
